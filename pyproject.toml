@@ -2,7 +2,7 @@
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
-# todo: check if submodules of external/ get excluded when adding submodules before accidentally
+# todo: check if submodules of external/ get actually excluded when adding submodules before accidentally
 [tool.setuptools]
 package-dir = {"" = "."}
 py-modules = ["app"]
@@ -23,7 +23,45 @@ requires-python = ">= 3.10"
 dependencies = [
     "dash==3.0.2",
     "dash-bootstrap-components==2.0.0",
-    "plotly==6.0.1",
     "pandas==2.2.3",
+    "plotly==6.0.1",
+    "pyarrow==19.0.1",
     "ydata_profiling==4.16.1"
 ]
+
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "FA",  # flake8-future-annotations
+]
+ignore = [
+    "N806", "N803",  # lower case variables, arguments
+    "E402",  # E402 Module level import not at top of file
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+required-imports = ["from __future__ import annotations"]

@@ -3,7 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# custom directories
 .vscode/
+.idea/
+assets/
+results/
+data/
 
 # C extensions
 *.so
