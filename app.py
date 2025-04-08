@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import logging
+import sys
+import types
 
 logging.basicConfig(level=logging.INFO)
-
-import os
 
 import dash
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 from plotly.graph_objects import Figure
+
+# Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
+sys.modules['taxoniq'] = types.SimpleNamespace()
 
 import external.selectzyme.src.pages.dimred as dimred
 import external.selectzyme.src.pages.eda as eda
@@ -20,10 +23,11 @@ from external.selectzyme.src.selectzyme.visualizer import plot_2d
 
 
 def main(app, G, Gsl, df, X_red):
-    export_path = os.path.join(config["project"]["data"]["out_dir"] + config["project"]["name"])
+    export_path = "data/"
+    legend_attribute = "cluster"
 
     # Perf: create DimRed and MST plot only once
-    fig = plot_2d(df, X_red, legend_attribute=config["project"]["plot_customizations"]["objective"])
+    fig = plot_2d(df, X_red, legend_attribute=legend_attribute)
     fig_mst = Figure(fig)  # copy required else fig will be modified by mst creation
 
     # Create page layouts
@@ -36,7 +40,7 @@ def main(app, G, Gsl, df, X_red):
     dash.register_page(
         "mst", name="Connectivity", layout=mst.layout(G, df, X_red, fig_mst)
     )
-    dash.register_page("slc", name="Phylogeny", layout=sl.layout(G=Gsl, df=df, legend_attribute=config["project"]["plot_customizations"]["objective"], out_file=export_path + "_slc.html"))
+    dash.register_page("slc", name="Phylogeny", layout=sl.layout(G=Gsl, df=df, legend_attribute=legend_attribute, out_file=export_path + "_slc.html"))
 
     # Register callbacks
     register_callbacks(app, df, X_red)
@@ -72,9 +76,7 @@ def main(app, G, Gsl, df, X_red):
 
 
 if __name__ == "__main__":
-    import argparse
-
-    from selectzyme.utils import parse_args
+    import pandas as pd
 
     app = dash.Dash(
         __name__,
@@ -82,14 +84,13 @@ if __name__ == "__main__":
         suppress_callback_exceptions=True,
         external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
     )
-    # server = app.server  # this line is only needed when deployed on a (public) server
-
-    # CLI argument parsing
-    config = parse_args()
+    server = app.server  # this line is only needed when deployed on a public server
     
     # Manual file parsing
-    df = pd.read_csv(config["project"]["data"]["input_file"])
-
+    df = None
+    G = None
+    Gsl = None
+    X_red = None
 
     main(app, G, Gsl, df, X_red)
-    app.run_server(host="127.0.0.1", port=config["project"]["port"], debug=False)
+    app.run_server(host="127.0.0.1", port=8051, debug=False)
