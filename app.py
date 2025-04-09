@@ -36,9 +36,6 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
             - np.ndarray: Reduced feature matrix loaded from "X_red.npz".
             - np.ndarray: Minimum spanning tree (MST) loaded from "hdbscan_structures.npz".
             - np.ndarray: Linkage matrix loaded from "hdbscan_structures.npz".
-    Raises:
-        FileNotFoundError: If any of the required files are not found in the input directory.
-        ValueError: If the loaded files do not contain the expected data structures.
     """
     df = pd.read_parquet(os.path.join(input_dir, "df.parquet"))
     X_red = np.load(os.path.join(input_dir, "X_red.npz"))["X_red"]
@@ -118,7 +115,7 @@ if __name__ == "__main__":
     )
     # server = app.server  # this line is only needed when deployed on a public server
     
-    input_dir = "data/minimal_example/"
+    input_dir = "data/blast_psi/"
 
     main(app, input_dir)
-    app.run(host="127.0.0.1", port=8051, debug=False)  # run_server for backwards compatibility (older dash versions)
+    app.run(host="127.0.0.1", port=8050, debug=False)  # run_server for backwards compatibility (older dash versions)
