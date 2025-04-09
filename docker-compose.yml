@@ -1,0 +1,27 @@
+services:
+  selectzyme_demo1:
+    build: .
+    ports:
+      - "8051:8051"
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo1
+    volumes:
+      - ./data1:/app/data/minimal_example
+
+  selectzyme_demo2:
+    build: .
+    ports:
+      - "8052:8051"
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo2
+    volumes:
+      - ./data2:/app/data/minimal_example
+
+  selectzyme_demo3:
+    build: .
+    ports:
+      - "8053:8051"
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo3
+    volumes:
+      - ./data3:/app/data/minimal_example
