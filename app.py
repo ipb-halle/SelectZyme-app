@@ -52,7 +52,8 @@ def main(app, input_dir) -> None:
     legend_attribute = "cluster"
     df, X_red, mst_tree, linkage = import_results(input_dir)
 
-    sys.setrecursionlimit(max(df.shape[0], 10000))
+    SANE_LIMIT = 50000  # maximum safe recursion limit
+    sys.setrecursionlimit(min(max(df.shape[0], 10000), SANE_LIMIT))
 
     # Perf: create DimRed and MST plot only once
     fig = plot_2d(df, X_red, legend_attribute=legend_attribute)
@@ -110,7 +111,10 @@ def main(app, input_dir) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
-    parser.add_argument("-i", "--input_dir", type=str, default="data/blast_psi", help="Path to input directory (default: 'data/blast_psi')")
+    parser.add_argument("-i", 
+                        "--input_dir", 
+                        type=str, default="data/blast_psi", 
+                        help="Path to input directory (default: 'data/blast_psi')")
     args = parser.parse_args()
 
     app = dash.Dash(
@@ -123,4 +127,4 @@ if __name__ == "__main__":
     # server = app.server  # this line is only needed when deployed on a public server
     
     main(app, args.input_dir)
-    app.run(host="127.0.0.1", port=8050, debug=False)  # run_server for backwards compatibility (older dash versions)
+    app.run(host="127.0.0.1", port=8050, debug=False)
