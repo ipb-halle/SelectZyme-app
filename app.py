@@ -51,6 +51,8 @@ def main(app, input_dir) -> None:
     legend_attribute = "cluster"
     df, X_red, mst_tree, linkage = import_results(input_dir)
 
+    sys.setrecursionlimit(max(df.shape[0], 10000))
+
     # Perf: create DimRed and MST plot only once
     fig = plot_2d(df, X_red, legend_attribute=legend_attribute)
     fig_mst = Figure(fig)  # copy required else fig will be modified by mst creation
@@ -115,7 +117,7 @@ if __name__ == "__main__":
     )
     # server = app.server  # this line is only needed when deployed on a public server
     
-    input_dir = "data/blast_psi/"
+    input_dir = "data/petase/"
 
     main(app, input_dir)
     app.run(host="127.0.0.1", port=8050, debug=False)  # run_server for backwards compatibility (older dash versions)
