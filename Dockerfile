@@ -1,3 +1,4 @@
+# todo: The image contains 1 high vulnerability, consider action
 FROM python:3.10-slim
 
 # Set the working directory in the container

@@ -1,26 +1,29 @@
 services:
-  selectzyme_demo1:
+  selectzyme_blast_psi:
     build: .
     ports:
-      - "8051:8051"
+      - "8051:8050"
+    command: --input_dir=/app/data/blast_psi
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo1
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi  # use this for the dash.url_base_pathname  check if it routes to path or '/'
     volumes:
-      - ./data1:/app/data/minimal_example
+      - ./data1:/app/data/blast_psi
 
-  selectzyme_demo2:
+  selectzyme_petase:
     build: .
     ports:
-      - "8052:8051"
+      - "8052:8050"
+    command: --input_dir=/app/data/petase
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo2
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase
     volumes:
-      - ./data2:/app/data/minimal_example
+      - ./data2:/app/data/petase
 
   selectzyme_demo3:
     build: .
     ports:
-      - "8053:8051"
+      - "8053:8050"
+    command: --input_dir=/app/data/demo3
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo3
     volumes:

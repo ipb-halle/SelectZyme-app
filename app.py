@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import logging
 import os
 import sys
@@ -108,6 +109,10 @@ def main(app, input_dir) -> None:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
+    parser.add_argument("-i", "--input_dir", type=str, default="data/blast_psi", help="Path to input directory (default: 'data/blast_psi')")
+    args = parser.parse_args()
+
     app = dash.Dash(
         __name__,
         use_pages=True,
@@ -117,7 +122,5 @@ if __name__ == "__main__":
     )
     # server = app.server  # this line is only needed when deployed on a public server
     
-    input_dir = "data/petase/"
-
-    main(app, input_dir)
+    main(app, args.input_dir)
     app.run(host="127.0.0.1", port=8050, debug=False)  # run_server for backwards compatibility (older dash versions)
