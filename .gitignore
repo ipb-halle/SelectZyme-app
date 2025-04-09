@@ -8,7 +8,6 @@ __pycache__/
 .idea/
 assets/
 results/
-data/
 
 # C extensions
 *.so

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import logging
 import os
 import sys
@@ -36,9 +37,6 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
             - np.ndarray: Reduced feature matrix loaded from "X_red.npz".
             - np.ndarray: Minimum spanning tree (MST) loaded from "hdbscan_structures.npz".
             - np.ndarray: Linkage matrix loaded from "hdbscan_structures.npz".
-    Raises:
-        FileNotFoundError: If any of the required files are not found in the input directory.
-        ValueError: If the loaded files do not contain the expected data structures.
     """
     df = pd.read_parquet(os.path.join(input_dir, "df.parquet"))
     X_red = np.load(os.path.join(input_dir, "X_red.npz"))["X_red"]
@@ -53,6 +51,9 @@ def main(app, input_dir) -> None:
     export_path = "data/"  # paths not really needed here maybe route to /tmp
     legend_attribute = "cluster"
     df, X_red, mst_tree, linkage = import_results(input_dir)
+
+    SANE_LIMIT = 50000  # maximum safe recursion limit
+    sys.setrecursionlimit(min(max(df.shape[0], 10000), SANE_LIMIT))
 
     # Perf: create DimRed and MST plot only once
     fig = plot_2d(df, X_red, legend_attribute=legend_attribute)
@@ -109,6 +110,13 @@ def main(app, input_dir) -> None:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
+    parser.add_argument("-i", 
+                        "--input_dir", 
+                        type=str, default="data/blast_psi", 
+                        help="Path to input directory (default: 'data/blast_psi')")
+    args = parser.parse_args()
+
     app = dash.Dash(
         __name__,
         use_pages=True,
@@ -118,7 +126,5 @@ if __name__ == "__main__":
     )
     # server = app.server  # this line is only needed when deployed on a public server
     
-    input_dir = "data/minimal_example/"
-
-    main(app, input_dir)
-    app.run(host="127.0.0.1", port=8051, debug=False)  # run_server for backwards compatibility (older dash versions)
+    main(app, args.input_dir)
+    app.run(host="127.0.0.1", port=8050, debug=False)
