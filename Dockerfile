@@ -10,6 +10,7 @@ COPY . /app
 # RUN apt-get update && apt-get install -y git
 # RUN git submodule update --init --recursive --remote
 
+RUN pip install -r requirements.txt
 RUN pip install .
 RUN pip install --no-dependencies external/selectzyme/
 
