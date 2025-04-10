@@ -5,7 +5,7 @@ services:
       - "8051:8050"
     command: --input_dir=/app/data/blast_psi
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi  # use this for the dash.url_base_pathname  check if it routes to path or '/'
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # use this for the dash.url_base_pathname  check if it routes to path or '/'
     volumes:
       - ./data1:/app/data/blast_psi
 
@@ -15,6 +15,6 @@ services:
       - "8052:8050"
     command: --input_dir=/app/data/petase
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
     volumes:
       - ./data2:/app/data/petase
