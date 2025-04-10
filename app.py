@@ -62,7 +62,7 @@ def main(app, input_dir) -> None:
     # Create page layouts
     dash.register_page("eda", 
                        name="Explanatory Data Analysis", 
-                       layout=eda.layout(df, out_file=export_path + "_eda.html"))
+                       layout=eda.layout(df))
     dash.register_page(
         "dim",
         name="Protein Landscape",
@@ -73,8 +73,7 @@ def main(app, input_dir) -> None:
     )
     dash.register_page("slc", name="Phylogeny", layout=sl.layout(_linkage=linkage, 
                                                                  df=df, 
-                                                                 legend_attribute=legend_attribute, 
-                                                                 out_file=export_path + "_slc.html"))
+                                                                 legend_attribute=legend_attribute))
 
     # Register callbacks
     register_callbacks(app, df, X_red)
