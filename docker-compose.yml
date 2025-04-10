@@ -18,13 +18,3 @@ services:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase
     volumes:
       - ./data2:/app/data/petase
-
-  selectzyme_demo3:
-    build: .
-    ports:
-      - "8053:8050"
-    command: --input_dir=/app/data/demo3
-    environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/demo3
-    volumes:
-      - ./data3:/app/data/minimal_example
