@@ -7,7 +7,7 @@ services:
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # use this for the dash.url_base_pathname  check if it routes to path or '/'
     volumes:
-      - ./data1:/app/data/blast_psi
+      - ./data/blast_psi:/app/data/blast_psi
 
   selectzyme_petase:
     build: .
@@ -17,4 +17,4 @@ services:
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
     volumes:
-      - ./data2:/app/data/petase
+      - ./data/blast_petase:/app/data/petase
