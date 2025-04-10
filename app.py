@@ -48,7 +48,6 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
 
 
 def main(app, input_dir) -> None:
-    export_path = "data/"  # paths not really needed here maybe route to /tmp
     legend_attribute = "cluster"
     df, X_red, mst_tree, linkage = import_results(input_dir)
 

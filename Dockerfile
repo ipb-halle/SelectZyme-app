@@ -6,15 +6,15 @@ WORKDIR /app
 
 COPY . /app
 
+# todo: not working yet: make sure submodule SelectZyme is always 'latest'
+# RUN apt-get update && apt-get install -y git
+# RUN git submodule update --init --recursive --remote
+
 RUN pip install .
 RUN pip install --no-dependencies external/selectzyme/
-
-# this is deprecated since cloning is done with submodules directly
-# RUN apt-get update && apt-get install -y git
-# RUN git clone --recurse-submodules https://github.com/fmoorhof/SelectZyme-demo-app.git
 
 # Expose the port Dash will run on
 EXPOSE 8050
 
 # Run the Dash app
-CMD ["python", "app.py"]
+ENTRYPOINT ["python", "app.py"]
