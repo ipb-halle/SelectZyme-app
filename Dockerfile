@@ -7,11 +7,11 @@ WORKDIR /app
 COPY . /app
 
 RUN pip install .
+RUN pip install --no-dependencies external/selectzyme/
 
-# todo: Q: still needed when submodules are included already??
-# do not install dependencies from SelectZyme but only import code
+# this is deprecated since cloning is done with submodules directly
 # RUN apt-get update && apt-get install -y git
-# RUN git submodule add https://github.com/ipb-halle/SelectZyme.git external/selectzyme
+# RUN git clone --recurse-submodules https://github.com/fmoorhof/SelectZyme-demo-app.git
 
 # Expose the port Dash will run on
 EXPOSE 8050
