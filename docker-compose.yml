@@ -3,18 +3,18 @@ services:
     build: .
     ports:
       - "8051:8050"
-    command: --input_dir=/app/data/blast_psi
+    command: --input_dir=/app/data
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # use this for the dash.url_base_pathname  check if it routes to path or '/'
+      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # 127.0.0.1:PORT/DASH_URL_BASE_PATHNAME
     volumes:
-      - ./data/blast_psi:/app/data/blast_psi
+      - ./data/blast_psi:/app/data
 
   selectzyme_petase:
     build: .
     ports:
       - "8052:8050"
-    command: --input_dir=/app/data/petase
+    command: --input_dir=/app/data/
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
     volumes:
-      - ./data/blast_petase:/app/data/petase
+      - ./data/petase:/app/data/
