@@ -59,16 +59,16 @@ def main(app, input_dir) -> None:
     fig_mst = Figure(fig)  # copy required else fig will be modified by mst creation
 
     # Create page layouts
-    dash.register_page("eda", 
+    dash.register_page(module="eda",
                        name="Explanatory Data Analysis", 
                        layout=eda.layout(df))
     dash.register_page(
-        "dim",
+        module="dim",
         name="Protein Landscape",
         layout=dimred.layout(df, fig),
     )
     dash.register_page(
-        "mst", name="Connectivity", layout=mst.layout(mst_tree, df, X_red, fig_mst)
+        module="mst", name="Connectivity", layout=mst.layout(mst_tree, df, X_red, fig_mst)
     )
     dash.register_page("slc", name="Phylogeny", layout=sl.layout(_linkage=linkage, 
                                                                  df=df, 
@@ -93,7 +93,7 @@ def main(app, input_dir) -> None:
                     ),  # !saves table data from layouts via callbacks defined in the page layouts
                     dbc.Nav(
                         [
-                            dbc.NavItem(dbc.NavLink(page["name"], href=page["path"]))
+                            dbc.NavItem(dbc.NavLink(page["name"], href=page["relative_path"]))  # base_path redirect relative path
                             for page in dash.page_registry.values()
                         ],
                         pills=True,
@@ -125,4 +125,4 @@ if __name__ == "__main__":
     # server = app.server  # this line is only needed when deployed on a public server
     
     main(app, args.input_dir)
-    app.run(host="127.0.0.1", port=8050, debug=False)
+    app.run(host="0.0.0.0", port=8050, debug=False)
