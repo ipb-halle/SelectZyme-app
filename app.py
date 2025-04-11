@@ -93,13 +93,14 @@ def main(app, input_dir) -> None:
                     ),  # !saves table data from layouts via callbacks defined in the page layouts
                     dbc.Nav(
                         [
-                            dbc.NavItem(dbc.NavLink(page["name"], href=page["relative_path"]))  # base_path redirect relative path
+                            dbc.NavItem(dbc.NavLink(page["name"], 
+                                                    href=page["relative_path"]))  # fix: wrong redirect on server
                             for page in dash.page_registry.values()
                         ],
                         pills=True,
                     ),
                     html.Hr(),
-                    dash.page_container,  # Displays the content of the current page
+                    dash.page_container,  # causing 404 error blank page
                 ]
             ),
         ],

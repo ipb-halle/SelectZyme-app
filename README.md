@@ -20,7 +20,7 @@ Requires cloning the repository (see above).
 #### All containers defined in docker-compose
 ```
 docker-compose up
-docker-compose down  # shutdown service
+docker-compose down  # shut down service
 ```
 
 #### Individual Container
