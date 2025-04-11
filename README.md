@@ -16,6 +16,14 @@ pip install --no-dependencies external/selectzyme/
 
 ### Docker
 Requires cloning the repository (see above).
+
+#### All containers defined in docker-compose
+```
+docker-compose up
+docker-compose down  # shut down service
+```
+
+#### Individual Container
 ```
 docker build -t ipb-halle/selectzyme-demo-app:development .
 docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-demo-app:development --input_dir=/app/data/blast_psi
