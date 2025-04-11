@@ -18,4 +18,4 @@ RUN pip install --no-dependencies external/selectzyme/
 EXPOSE 8050
 
 # Run the Dash app
-ENTRYPOINT ["bash", "-c", "ulimit -s unlimited && python app.py"]
+ENTRYPOINT ["bash", "-c", "ulimit -s unlimited && exec python app.py \"$@\"", "--"]
