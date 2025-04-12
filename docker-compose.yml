@@ -1,4 +1,11 @@
 services:
+  index:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index:/usr/share/nginx/html:ro
+      
   selectzyme_blast_psi:
     build: .
     ports:
