@@ -5,7 +5,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./nginx/index.html:/usr/share/nginx/html/index.html:ro
     depends_on:
       - selectzyme_blast_psi
       - selectzyme_petase
