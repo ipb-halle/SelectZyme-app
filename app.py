@@ -81,8 +81,10 @@ def main(app, input_dir) -> None:
     # App layout with navigation links and page container
     app.layout = dbc.Container(
         [
-            html.A("← Back to Home", href="/selectzyme-demo/", style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
-            
+            html.A("← Back to Home", 
+                   href="/selectzyme-demo/", 
+                   style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
+
             dbc.NavbarSimple(
                 brand="Analysis results",
                 color="primary",
