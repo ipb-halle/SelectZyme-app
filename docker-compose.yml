@@ -1,5 +1,5 @@
 services:
-  nginx:
+  proxy:
     image: nginx:alpine
     ports:
       - "80:80"
@@ -25,3 +25,7 @@ services:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
     volumes:
       - ./data/petase/:/app/data_container/
+
+networks:
+  selectzyme-network:
+    driver: bridge
