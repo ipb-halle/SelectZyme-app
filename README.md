@@ -1,5 +1,5 @@
 # SelectZyme-demo-app
-Minimal demonstration of pre-build plots, served interactively with dash components, extracted from SelectZyme project to create a minimal viable app.
+Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme
 
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
@@ -17,10 +17,10 @@ pip install --no-dependencies external/selectzyme/
 ### Docker
 Requires cloning the repository (see above).
 
-#### All containers defined in docker-compose
+#### Start all containers defined in docker-compose
 ```
 docker-compose up
-docker-compose down  # shut down service
+docker-compose down  # shut down services
 ```
 
 #### Individual Container
