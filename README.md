@@ -1,5 +1,5 @@
 # SelectZyme-demo-app
-Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme
+Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme.
 
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
@@ -7,33 +7,38 @@ Prerequisite for all installs is to clone the repository with the corresponding 
 git clone --recurse-submodules https://github.com/fmoorhof/SelectZyme-demo-app.git
 cd SelectZyme-demo-app
 ```
-### Local
+
+### Docker
+Requires cloning the repository (see above).
+```
+docker build -t ipb-halle/selectzyme-demo-app:development .
+```
+#### Run all case studies (reproduces SelectZyme server)
+```
+docker-compose up
+docker-compose down  # shut down services
+```
+Access the server from your browser at: `localhost/selectzyme-demo/`
+
+
+#### Run only individual Container
+```
+docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-demo-app:development --input_dir=/app/data/blast_psi
+```
+Access the server for your analysis from your browser at: `localhost:8050`
+
+### Local install
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
 ```
 pip install .
 pip install --no-dependencies external/selectzyme/
 ```
-
-### Docker
-Requires cloning the repository (see above).
-
-#### Start all containers defined in docker-compose
-```
-docker-compose up
-docker-compose down  # shut down services
-```
-
-#### Individual Container
-```
-docker build -t ipb-halle/selectzyme-demo-app:development .
-docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-demo-app:development --input_dir=/app/data/blast_psi
-```
-
-### Usage
+Usage: 
 ```
 python app.py  # runs example analysis by default
 python app.py -i=/your/out_files/from/selectzyme_backend
 ```
+Access the server for your analysis from your browser at: `localhost:8050`
 
 ## Development
 This project uses the following tools to improve code quality:

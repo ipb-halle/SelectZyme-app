@@ -13,7 +13,7 @@ services:
       - selectzyme-network
       
   selectzyme_blast_psi:
-    build: .
+    image: ipb-halle/selectzyme-demo-app:development
     command: --input_dir=/app/data_container/
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # 127.0.0.1:PORT/DASH_URL_BASE_PATHNAME
@@ -23,7 +23,7 @@ services:
       - selectzyme-network
 
   selectzyme_petase:
-    build: .
+    image: ipb-halle/selectzyme-demo-app:development
     command: --input_dir=/app/data_container/
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
