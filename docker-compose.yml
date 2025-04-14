@@ -1,20 +1,37 @@
 services:
+  proxy:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/index.html:/usr/share/nginx/html/selectzyme-demo/index.html:ro    
+    depends_on:
+      - selectzyme_blast_psi
+      - selectzyme_petase
+    networks:
+      - selectzyme-network
+      
   selectzyme_blast_psi:
     build: .
-    ports:
-      - "8051:8050"
     command: --input_dir=/app/data_container/
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # 127.0.0.1:PORT/DASH_URL_BASE_PATHNAME
     volumes:
       - ./data/blast_psi/:/app/data_container/
+    networks:
+      - selectzyme-network
 
   selectzyme_petase:
     build: .
-    ports:
-      - "8052:8050"
     command: --input_dir=/app/data_container/
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
     volumes:
       - ./data/petase/:/app/data_container/
+    networks:
+      - selectzyme-network
+
+networks:
+  selectzyme-network:
+    driver: bridge
