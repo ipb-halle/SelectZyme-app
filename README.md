@@ -1,6 +1,21 @@
 # SelectZyme-demo-app
 Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme.
 
+```mermaid
+graph TD;  
+    B[BLAST-PSI analysis] --> D[data/blast_psi/:/app/data_container/];
+    C[Petase analysis] --> E[data/petase/:/app/data_container/];
+    
+    A[Proxy - Nginx] -->|/selectzyme-demo/blast-psi/| B[BLAST-PSI analysis];
+    A[Proxy - Nginx] -->|/selectzyme-demo/petase/| C[Petase analysis];
+    
+    subgraph Docker Network;
+        A[Proxy - Nginx];
+        B[BLAST-PSI analysis];
+        C[Petase analysis];
+    end
+```
+
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
 ```
