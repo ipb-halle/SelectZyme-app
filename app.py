@@ -81,63 +81,78 @@ def main(app, input_dir) -> None:
     # App layout with navigation links and page container
     app.layout = dbc.Container(
         [
-            html.A("← Back to Home", 
-                   href="/selectzyme-demo/", 
-                   style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
-
-            # Logo + Navbar
-            html.Div(
+        # Header Row
+        html.Div(
             [
-                dbc.NavbarSimple(
-                brand=f"Analysis results for {input_dir.split('/')[-1]}",
-                color="primary",
-                dark=True,
-                style={"flex": "1"},
-                ),
-                html.Img(
-                    src="assets/ipb-logo.png",
+                html.A("← Back to Home", 
+                    href="/selectzyme-demo/", 
                     style={
-                        "height": "50px",
-                        "position": "absolute",
-                        "top": "10px",
-                        "right": "15px",
-                        "zIndex": "1000"
-                    },
+                        "fontSize": "16px",
+                        "textDecoration": "none",
+                        "color": "white",
+                        "marginLeft": "15px"
+                    }),
+
+                html.Div(
+                    f"Analysis results for {input_dir.split('/')[-1]}",
+                    style={
+                        "fontSize": "20px",
+                        "color": "white",
+                        "textAlign": "center",
+                        "flex": "1"
+                    }
                 ),
+
+                html.Img(
+                    src="/assets/ipb-logo.png",
+                    style={
+                        "height": "40px",
+                        "marginRight": "15px"
+                    }
+                )
             ],
-            style={"position": "relative"}
+            style={
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "space-between",
+                "backgroundColor": "#0d6efd",  # Bootstrap primary
+                "padding": "10px 0",
+                "marginBottom": "15px",
+                "borderRadius": "5px"
+            }
         ),
-            html.Div(
-                [
-                    dcc.Store(
-                        id="shared-data", data=[], storage_type="memory"
-                    ),  # !saves table data from layouts via callbacks defined in the page layouts
-                    dbc.Nav(
+        # Main content
+        html.Div(
+            [
+                dcc.Store(
+                    id="shared-data", data=[], storage_type="memory"
+                ),  # !saves table data from layouts via callbacks defined in the page layouts
+                dbc.Nav(
+                    [
+                        dbc.NavItem(dbc.NavLink(page["name"], 
+                                                href=page["relative_path"]))  # fix: wrong redirect on server
+                        for page in dash.page_registry.values()
+                    ],
+                    pills=True,
+                ),
+                html.Hr(),
+                dash.page_container,  # causing 404 error blank page
+                html.Footer(
+                    html.Div(
                         [
-                            dbc.NavItem(dbc.NavLink(page["name"], 
-                                                    href=page["relative_path"]))  # fix: wrong redirect on server
-                            for page in dash.page_registry.values()
+                            html.A("Impressum", href="https://www.ipb-halle.de/kontakt/impressum", target="_blank", style={"marginRight": "15px"}),
+                            html.A("Datenschutz (DSGVO)", href="https://www.ipb-halle.de/kontakt/datenschutz", target="_blank"),
                         ],
-                        pills=True,
-                    ),
-                    html.Hr(),
-                    dash.page_container,  # causing 404 error blank page
-                    html.Footer(
-                        html.Div(
-                            [
-                                html.A("Impressum", href="https://www.ipb-halle.de/kontakt/impressum", target="_blank", style={"marginRight": "15px"}),
-                                html.A("Datenschutz (DSGVO)", href="https://www.ipb-halle.de/kontakt/datenschutz", target="_blank"),
-                            ],
-                            style={
-                                "textAlign": "center",
-                                "padding": "20px",
-                                "fontSize": "14px",
-                                "color": "#666",
-                            },
-                        )
+                        style={
+                            "textAlign": "center",
+                            "padding": "20px",
+                            "fontSize": "14px",
+                            "color": "#666",
+                        },
                     )
-                ]
-            ),
+                )
+            ]
+        ),
         ],
         fluid=True,
     )
