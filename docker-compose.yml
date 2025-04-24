@@ -9,6 +9,8 @@ services:
     depends_on:
       - selectzyme_blast_psi
       - selectzyme_petase
+    logging:
+      driver: "none"
     networks:
       - selectzyme-network
       
