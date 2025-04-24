@@ -105,6 +105,20 @@ def main(app, input_dir) -> None:
                     ),
                     html.Hr(),
                     dash.page_container,  # causing 404 error blank page
+                    html.Footer(
+                        html.Div(
+                            [
+                                html.A("Impressum", href="https://www.ipb-halle.de/kontakt/impressum", target="_blank", style={"marginRight": "15px"}),
+                                html.A("Datenschutz (DSGVO)", href="https://www.ipb-halle.de/kontakt/datenschutz", target="_blank"),
+                            ],
+                            style={
+                                "textAlign": "center",
+                                "padding": "20px",
+                                "fontSize": "14px",
+                                "color": "#666",
+                            },
+                        )
+                    )
                 ]
             ),
         ],
@@ -127,7 +141,7 @@ if __name__ == "__main__":
         suppress_callback_exceptions=True,
         external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
     )
-    # server = app.server  # this line is only needed when deployed on a public server
     
     main(app, args.input_dir)
+    # server = app.server  # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
     app.run(host="0.0.0.0", port=8050, debug=False)
