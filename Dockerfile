@@ -18,4 +18,5 @@ RUN pip install --no-dependencies external/selectzyme/
 EXPOSE 8050
 
 # Run the Dash app [stack size (-s) in kbytes] 
-ENTRYPOINT ["bash", "-c", "ulimit -s 32768000 && exec python app.py \"$@\"", "--"]
+ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec python app.py \"$@\"", "--"]
+# todo adapt serving: CMD ["gunicorn", "app:main", "--bind", "0.0.0.0:8050", "--workers", "2"]

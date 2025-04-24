@@ -140,8 +140,12 @@ def main(app, input_dir) -> None:
                 html.Footer(
                     html.Div(
                         [
-                            html.A("Impressum", href="https://www.ipb-halle.de/kontakt/impressum", target="_blank", style={"marginRight": "15px"}),
-                            html.A("Datenschutz (DSGVO)", href="https://www.ipb-halle.de/kontakt/datenschutz", target="_blank"),
+                            html.A("Impressum", 
+                                   href="https://www.ipb-halle.de/kontakt/impressum", 
+                                   target="_blank", style={"marginRight": "15px"}),
+                            html.A("Datenschutz (DSGVO)", 
+                                   href="https://www.ipb-halle.de/kontakt/datenschutz", 
+                                   target="_blank"),
                         ],
                         style={
                             "textAlign": "center",

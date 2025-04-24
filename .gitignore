@@ -6,7 +6,6 @@ __pycache__/
 # custom directories
 .vscode/
 .idea/
-assets/
 results/
 
 # C extensions
