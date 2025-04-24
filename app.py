@@ -86,7 +86,7 @@ def main(app, input_dir) -> None:
                    style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
 
             dbc.NavbarSimple(
-                brand="Analysis results",
+                brand=f"Analysis results for {input_dir.split('/')[-1]}",
                 color="primary",
                 dark=True,
             ),
