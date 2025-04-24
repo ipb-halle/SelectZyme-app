@@ -85,11 +85,28 @@ def main(app, input_dir) -> None:
                    href="/selectzyme-demo/", 
                    style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
 
-            dbc.NavbarSimple(
+            # Logo + Navbar
+            html.Div(
+            [
+                dbc.NavbarSimple(
                 brand=f"Analysis results for {input_dir.split('/')[-1]}",
                 color="primary",
                 dark=True,
-            ),
+                style={"flex": "1"},
+                ),
+                html.Img(
+                    src="assets/ipb-logo.png",
+                    style={
+                        "height": "50px",
+                        "position": "absolute",
+                        "top": "10px",
+                        "right": "15px",
+                        "zIndex": "1000"
+                    },
+                ),
+            ],
+            style={"position": "relative"}
+        ),
             html.Div(
                 [
                     dcc.Store(
