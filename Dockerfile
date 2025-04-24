@@ -17,5 +17,5 @@ RUN pip install --no-dependencies external/selectzyme/
 # Expose the port Dash will run on
 EXPOSE 8050
 
-# Run the Dash app
-ENTRYPOINT ["bash", "-c", "ulimit -s unlimited && exec python app.py \"$@\"", "--"]
+# Run the Dash app [stack size (-s) in kbytes] 
+ENTRYPOINT ["bash", "-c", "ulimit -s 32768000 && exec python app.py \"$@\"", "--"]
