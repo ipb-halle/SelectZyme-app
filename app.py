@@ -25,7 +25,6 @@ import external.selectzyme.src.pages.single_linkage as sl
 from external.selectzyme.src.pages.callbacks import register_callbacks
 from external.selectzyme.src.selectzyme.visualizer import plot_2d
 
-
 app = dash.Dash(
     __name__,
     use_pages=True,
@@ -105,7 +104,7 @@ def main(app, input_dir) -> None:
                     }),
 
                 html.Div(
-                    f"Analysis results for {input_dir.split('/')[-1]}",
+                    f"Analysis results: {input_dir.split('/')[-1]}",
                     style={
                         "fontSize": "20px",
                         "color": "white",
@@ -182,7 +181,7 @@ if __name__ == "__main__":
     
     main(app, args.input_dir)
     app.run(host="0.0.0.0", port=8050, debug=False)
-    # server = app.server  # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
 
 else:
     main(app, "/app/data_container/")  # mount from container
+    # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1

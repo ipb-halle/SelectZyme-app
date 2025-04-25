@@ -15,4 +15,5 @@ RUN pip install --no-dependencies external/selectzyme/
 EXPOSE 8050
 
 # Run the Dash app [stack size (-s) in kbytes] 
-ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec gunicorn app:server--bind 0.0.0.0:8050 --Workers 1]  # python app.py \"$@\"", "--"]
+ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec gunicorn app:server --bind 0.0.0.0:8050 --workers 1"]
+# ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec python app.py \"$@\"", "--"]  # old argparsing
