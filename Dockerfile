@@ -4,13 +4,10 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-COPY . /app
-
-# todo: not working yet: make sure submodule SelectZyme is always 'latest'
-# RUN apt-get update && apt-get install -y git
-# RUN git submodule update --init --recursive --remote
-
+COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
+
+COPY . /app
 RUN pip install .
 RUN pip install --no-dependencies external/selectzyme/
 
