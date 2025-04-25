@@ -104,7 +104,7 @@ def main(app, input_dir) -> None:
                 ),
 
                 html.Img(
-                    src="/assets/ipb-logo.png",
+                    src="assets/ipb-logo.png",
                     style={
                         "height": "40px",
                         "marginRight": "15px"
