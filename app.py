@@ -172,8 +172,6 @@ def main(app, input_dir) -> None:
         fluid=True,
     )
 
-main(app, "data/blast_psi")  # todo: change argparsing later
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
     parser.add_argument("-i", 
@@ -182,6 +180,9 @@ if __name__ == "__main__":
                         help="Path to input directory (default: 'data/blast_psi')")
     args = parser.parse_args()
     
-    # main(app, args.input_dir)
+    main(app, args.input_dir)
     app.run(host="0.0.0.0", port=8050, debug=False)
     # server = app.server  # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
+
+else:
+    main(app, "/app/data_container/")  # mount from container
