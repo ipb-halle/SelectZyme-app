@@ -26,6 +26,17 @@ from external.selectzyme.src.pages.callbacks import register_callbacks
 from external.selectzyme.src.selectzyme.visualizer import plot_2d
 
 
+app = dash.Dash(
+    __name__,
+    use_pages=True,
+    pages_folder="external/selectzyme/src/pages",
+    suppress_callback_exceptions=True,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
+)
+
+server = app.server  # get the Flask server from dash for gunicorn
+
+
 def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray]:
     """
     Imports and loads results from specified input directory.
@@ -161,6 +172,7 @@ def main(app, input_dir) -> None:
         fluid=True,
     )
 
+main(app, "data/blast_psi")  # todo: change argparsing later
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
@@ -169,15 +181,7 @@ if __name__ == "__main__":
                         type=str, default="data/blast_psi", 
                         help="Path to input directory (default: 'data/blast_psi')")
     args = parser.parse_args()
-
-    app = dash.Dash(
-        __name__,
-        use_pages=True,
-        pages_folder="external/selectzyme/src/pages",
-        suppress_callback_exceptions=True,
-        external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
-    )
     
-    main(app, args.input_dir)
-    # server = app.server  # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
+    # main(app, args.input_dir)
     app.run(host="0.0.0.0", port=8050, debug=False)
+    # server = app.server  # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
