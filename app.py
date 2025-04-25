@@ -25,6 +25,16 @@ import external.selectzyme.src.pages.single_linkage as sl
 from external.selectzyme.src.pages.callbacks import register_callbacks
 from external.selectzyme.src.selectzyme.visualizer import plot_2d
 
+app = dash.Dash(
+    __name__,
+    use_pages=True,
+    pages_folder="external/selectzyme/src/pages",
+    suppress_callback_exceptions=True,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
+)
+
+server = app.server  # get the Flask server from dash for gunicorn
+
 
 def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray]:
     """
@@ -81,36 +91,85 @@ def main(app, input_dir) -> None:
     # App layout with navigation links and page container
     app.layout = dbc.Container(
         [
-            html.A("← Back to Home", 
-                   href="/selectzyme-demo/", 
-                   style={"fontSize": "18px", "marginBottom": "20px", "display": "inline-block"}),
+        # Header Row
+        html.Div(
+            [
+                html.A("← Back to Home", 
+                    href="/selectzyme-demo/", 
+                    style={
+                        "fontSize": "16px",
+                        "textDecoration": "none",
+                        "color": "white",
+                        "marginLeft": "15px"
+                    }),
 
-            dbc.NavbarSimple(
-                brand="Analysis results",
-                color="primary",
-                dark=True,
-            ),
-            html.Div(
-                [
-                    dcc.Store(
-                        id="shared-data", data=[], storage_type="memory"
-                    ),  # !saves table data from layouts via callbacks defined in the page layouts
-                    dbc.Nav(
+                html.Div(
+                    f"Analysis results: {input_dir.split('/')[-1]}",
+                    style={
+                        "fontSize": "20px",
+                        "color": "white",
+                        "textAlign": "center",
+                        "flex": "1"
+                    }
+                ),
+
+                html.Img(
+                    src="assets/ipb-logo.png",
+                    style={
+                        "height": "40px",
+                        "marginRight": "15px"
+                    }
+                )
+            ],
+            style={
+                "display": "flex",
+                "alignItems": "center",
+                "justifyContent": "space-between",
+                "backgroundColor": "#0d6efd",  # Bootstrap primary
+                "padding": "10px 0",
+                "marginBottom": "15px",
+                "borderRadius": "5px"
+            }
+        ),
+        # Main content
+        html.Div(
+            [
+                dcc.Store(
+                    id="shared-data", data=[], storage_type="memory"
+                ),  # !saves table data from layouts via callbacks defined in the page layouts
+                dbc.Nav(
+                    [
+                        dbc.NavItem(dbc.NavLink(page["name"], 
+                                                href=page["relative_path"]))  # fix: wrong redirect on server
+                        for page in dash.page_registry.values()
+                    ],
+                    pills=True,
+                ),
+                html.Hr(),
+                dash.page_container,  # causing 404 error blank page
+                html.Footer(
+                    html.Div(
                         [
-                            dbc.NavItem(dbc.NavLink(page["name"], 
-                                                    href=page["relative_path"]))  # fix: wrong redirect on server
-                            for page in dash.page_registry.values()
+                            html.A("Impressum", 
+                                   href="https://www.ipb-halle.de/kontakt/impressum", 
+                                   target="_blank", style={"marginRight": "15px"}),
+                            html.A("Datenschutz (DSGVO)", 
+                                   href="https://www.ipb-halle.de/kontakt/datenschutz", 
+                                   target="_blank"),
                         ],
-                        pills=True,
-                    ),
-                    html.Hr(),
-                    dash.page_container,  # causing 404 error blank page
-                ]
-            ),
+                        style={
+                            "textAlign": "center",
+                            "padding": "20px",
+                            "fontSize": "14px",
+                            "color": "#666",
+                        },
+                    )
+                )
+            ]
+        ),
         ],
         fluid=True,
     )
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
@@ -119,15 +178,10 @@ if __name__ == "__main__":
                         type=str, default="data/blast_psi", 
                         help="Path to input directory (default: 'data/blast_psi')")
     args = parser.parse_args()
-
-    app = dash.Dash(
-        __name__,
-        use_pages=True,
-        pages_folder="external/selectzyme/src/pages",
-        suppress_callback_exceptions=True,
-        external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
-    )
-    # server = app.server  # this line is only needed when deployed on a public server
     
     main(app, args.input_dir)
     app.run(host="0.0.0.0", port=8050, debug=False)
+
+else:
+    main(app, "/app/data_container/")  # mount from container
+    # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1

@@ -4,18 +4,16 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-COPY . /app
-
-# todo: not working yet: make sure submodule SelectZyme is always 'latest'
-# RUN apt-get update && apt-get install -y git
-# RUN git submodule update --init --recursive --remote
-
+COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
+
+COPY . /app
 RUN pip install .
 RUN pip install --no-dependencies external/selectzyme/
 
 # Expose the port Dash will run on
 EXPOSE 8050
 
-# Run the Dash app
-ENTRYPOINT ["bash", "-c", "ulimit -s unlimited && exec python app.py \"$@\"", "--"]
+# Run the Dash app [stack size (-s) in kbytes] 
+ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec gunicorn app:server --bind 0.0.0.0:8050 --workers 1"]
+# ENTRYPOINT ["bash", "-c", "ulimit -s 10240 && exec python app.py \"$@\"", "--"]  # old argparsing
