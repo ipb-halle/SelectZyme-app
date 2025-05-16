@@ -1,3 +1,3 @@
 [submodule "external/selectzyme"]
 	path = external/selectzyme
-	url = https://github.com/ipb-halle/SelectZyme  # todo: if not worked, also check (.git/config)
+	url = git@github.com-selectzyme-core:ipb-halle/SelectZyme.git  # todo: if not worked, also check (.git/config)

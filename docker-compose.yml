@@ -1,8 +1,9 @@
 services:
   selectzyme-proxy:
     image: nginx:alpine
-    ports:
-      - "80:80"
+    # Port forwarding disabled for production runs
+    #ports:
+    #  - "80:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/index.html:/usr/share/nginx/html/selectzyme-demo/index.html  
