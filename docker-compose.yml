@@ -1,5 +1,5 @@
 services:
-  proxy:
+  selectzyme-proxy:
     image: nginx:alpine
     ports:
       - "80:80"
