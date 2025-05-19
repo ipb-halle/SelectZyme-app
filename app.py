@@ -18,17 +18,19 @@ from plotly.graph_objects import Figure
 # Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
 sys.modules['taxoniq'] = types.SimpleNamespace()
 
-import external.selectzyme.src.pages.dimred as dimred
-import external.selectzyme.src.pages.eda as eda
-import external.selectzyme.src.pages.mst as mst
-import external.selectzyme.src.pages.single_linkage as sl
-from external.selectzyme.src.pages.callbacks import register_callbacks
-from external.selectzyme.src.selectzyme.visualizer import plot_2d
+import external.selectzyme.selectzyme.pages.dimred as dimred
+import external.selectzyme.selectzyme.pages.eda as eda
+from external.selectzyme.selectzyme.pages.callbacks import register_callbacks
+from external.selectzyme.selectzyme.frontend.visualizer import plot_2d
+from external.selectzyme.selectzyme.frontend.mst_plotting import MinimumSpanningTree
+from external.selectzyme.selectzyme.frontend.single_linkage_plotting import create_dendrogram
+from external.selectzyme.selectzyme.backend.customizations import set_columns_of_interest
+
 
 app = dash.Dash(
     __name__,
     use_pages=True,
-    pages_folder="external/selectzyme/src/pages",
+    pages_folder="external/selectzyme/selectzyme/pages",
     suppress_callback_exceptions=True,
     external_stylesheets=["assets/bootstrap.min.css"],
 )
@@ -60,6 +62,7 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
 def main(app, input_dir) -> None:
     legend_attribute = "cluster"
     df, X_red, mst_tree, linkage = import_results(input_dir)
+    columns = set_columns_of_interest(df.columns)
 
     SANE_LIMIT = 50000  # maximum safe recursion limit
     sys.setrecursionlimit(min(max(df.shape[0], 10000), SANE_LIMIT))
@@ -67,6 +70,10 @@ def main(app, input_dir) -> None:
     # Perf: create DimRed and MST plot only once
     fig = plot_2d(df, X_red, legend_attribute=legend_attribute)
     fig_mst = Figure(fig)  # copy required else fig will be modified by mst creation
+    # Create all plots
+    mst_obj = MinimumSpanningTree(mst_tree, df, X_red, fig)
+    fig_mst = mst_obj.plot_mst_in_dimred_landscape()
+    fig_slc = create_dendrogram(Z=linkage, df=df, legend_attribute=legend_attribute)
 
     # Create page layouts
     dash.register_page(module="eda",
@@ -74,15 +81,12 @@ def main(app, input_dir) -> None:
                        layout=eda.layout(df))
     dash.register_page(
         module="dim",
+        path="/",        
         name="Protein Landscape",
-        layout=dimred.layout(df, fig),
+        layout=dimred.layout(columns, fig, dropdown=True),
     )
-    dash.register_page(
-        module="mst", name="Connectivity", layout=mst.layout(mst_tree, df, X_red, fig_mst)
-    )
-    dash.register_page("slc", name="Phylogeny", layout=sl.layout(_linkage=linkage, 
-                                                                 df=df, 
-                                                                 legend_attribute=legend_attribute))
+    dash.register_page(module="mst", name="Connectivity", layout=dimred.layout(columns, fig_mst))
+    dash.register_page(module="slc", name="Phylogeny", layout=dimred.layout(columns, fig_slc))
 
     # Register callbacks
     register_callbacks(app, df, X_red)
