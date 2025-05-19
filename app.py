@@ -30,7 +30,7 @@ app = dash.Dash(
     use_pages=True,
     pages_folder="external/selectzyme/src/pages",
     suppress_callback_exceptions=True,
-    external_stylesheets=[dbc.themes.BOOTSTRAP],  # Optional for styling
+    external_stylesheets=["assets/bootstrap.min.css"],
 )
 
 server = app.server  # get the Flask server from dash for gunicorn
