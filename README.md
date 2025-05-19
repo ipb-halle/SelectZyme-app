@@ -22,6 +22,10 @@ Prerequisite for all installs is to clone the repository with the corresponding 
 git clone --recurse-submodules https://github.com/fmoorhof/SelectZyme-demo-app.git
 cd SelectZyme-demo-app
 ```
+*Troubleshooting:
+if you forgot to clone with `--recurse-submodules` you can do it later via: `git submodule update --init`
+if you want to leave the latest stable commit hash and use a newer version of selectyme (core functionality), update the submodule to the latest commit:
+`git submodule update --recursive --remote`
 
 ### Docker
 Requires cloning the repository (see above).
