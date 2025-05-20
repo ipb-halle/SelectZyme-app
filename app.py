@@ -20,12 +20,11 @@ sys.modules['taxoniq'] = types.SimpleNamespace()
 
 import selectzyme.pages.dimred as dimred
 import selectzyme.pages.eda as eda
-from selectzyme.pages.callbacks import register_callbacks
-from selectzyme.frontend.visualizer import plot_2d
+from selectzyme.backend.customizations import set_columns_of_interest
 from selectzyme.frontend.mst_plotting import MinimumSpanningTree
 from selectzyme.frontend.single_linkage_plotting import create_dendrogram
-from selectzyme.backend.customizations import set_columns_of_interest
-
+from selectzyme.frontend.visualizer import plot_2d
+from selectzyme.pages.callbacks import register_callbacks
 
 app = dash.Dash(
     __name__,
@@ -78,7 +77,7 @@ def main(app, input_dir) -> None:
     # Create page layouts
     dash.register_page(module="eda",
                        name="Explanatory Data Analysis", 
-                       layout=eda.layout(df, file_path="external/selectzyme/selectzyme/assets/eda.html"))
+                       layout=eda.layout(df, file_path="assets/eda.html"))
     dash.register_page(
         module="dim",
         path="/",        
