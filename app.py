@@ -18,13 +18,13 @@ from plotly.graph_objects import Figure
 # Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
 sys.modules['taxoniq'] = types.SimpleNamespace()
 
-import external.selectzyme.selectzyme.pages.dimred as dimred
-import external.selectzyme.selectzyme.pages.eda as eda
-from external.selectzyme.selectzyme.pages.callbacks import register_callbacks
-from external.selectzyme.selectzyme.frontend.visualizer import plot_2d
-from external.selectzyme.selectzyme.frontend.mst_plotting import MinimumSpanningTree
-from external.selectzyme.selectzyme.frontend.single_linkage_plotting import create_dendrogram
-from external.selectzyme.selectzyme.backend.customizations import set_columns_of_interest
+import selectzyme.pages.dimred as dimred
+import selectzyme.pages.eda as eda
+from selectzyme.pages.callbacks import register_callbacks
+from selectzyme.frontend.visualizer import plot_2d
+from selectzyme.frontend.mst_plotting import MinimumSpanningTree
+from selectzyme.frontend.single_linkage_plotting import create_dendrogram
+from selectzyme.backend.customizations import set_columns_of_interest
 
 
 app = dash.Dash(
