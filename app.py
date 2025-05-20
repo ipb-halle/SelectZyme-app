@@ -78,7 +78,7 @@ def main(app, input_dir) -> None:
     # Create page layouts
     dash.register_page(module="eda",
                        name="Explanatory Data Analysis", 
-                       layout=eda.layout(df))
+                       layout=eda.layout(df, file_path="external/selectzyme/selectzyme/assets/eda.html"))
     dash.register_page(
         module="dim",
         path="/",        

@@ -19,7 +19,7 @@ graph TD;
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
 ```
-git clone --recurse-submodules https://github.com/fmoorhof/SelectZyme-demo-app.git
+git clone --recurse-submodules https://github.com/ipb-halle/SelectZyme-demo-app.git
 cd SelectZyme-demo-app
 ```
 *Troubleshooting:
