@@ -98,7 +98,7 @@ def main(app, input_dir) -> None:
         html.Div(
             [
                 html.A("← Back to Home", 
-                    href="/selectzyme-demo/", 
+                    href="/selectzyme/", 
                     style={
                         "fontSize": "16px",
                         "textDecoration": "none",

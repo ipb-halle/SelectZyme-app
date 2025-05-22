@@ -1,14 +1,14 @@
 services:
   selectzyme-proxy:
     image: nginx:alpine
-    # Port forwarding disabled for production runs
+    # Port forwarding disabled for production runs (profiles or docker-compose.override.yml can be used alternatively)
     #ports:
     #  - "80:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/index.html:/usr/share/nginx/html/selectzyme-demo/index.html
-      - ./nginx/bootstrap.min.css:/usr/share/nginx/html/selectzyme-demo/bootstrap.min.css      
-      - ./assets/:/usr/share/nginx/html/selectzyme-demo/assets/      
+      - ./nginx/index.html:/usr/share/nginx/html/selectzyme/index.html
+      - ./nginx/bootstrap.min.css:/usr/share/nginx/html/selectzyme/bootstrap.min.css      
+      - ./assets/:/usr/share/nginx/html/selectzyme/assets/      
     depends_on:
       - selectzyme_blast_psi
       - selectzyme_petase
@@ -16,20 +16,20 @@ services:
       - selectzyme-network
       
   selectzyme_blast_psi:
-    image: ipb-halle/selectzyme-demo-app:development
+    image: ipb-halle/selectzyme-app:development
     command: --input_dir=/app/data_container/
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/blast-psi/  # 127.0.0.1:PORT/DASH_URL_BASE_PATHNAME
+      - DASH_URL_BASE_PATHNAME=/selectzyme/blast-psi/
     volumes:
       - ./data/blast_psi/:/app/data_container/
     networks:
       - selectzyme-network
 
   selectzyme_petase:
-    image: ipb-halle/selectzyme-demo-app:development
+    image: ipb-halle/selectzyme-app:development
     command: --input_dir=/app/data_container/
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme-demo/petase/
+      - DASH_URL_BASE_PATHNAME=/selectzyme/petase/
     volumes:
       - ./data/petase/:/app/data_container/
     networks:

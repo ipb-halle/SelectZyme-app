@@ -1,5 +1,5 @@
 [project]
-name = "selectzyme-demo-app"
+name = "selectzyme-app"
 version = "0.0.2"
 description = "A minimal demo application for selectzyme"
 readme = "README.md"

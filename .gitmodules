@@ -1,5 +1,5 @@
 [submodule "external/selectzyme"]
 	path = external/selectzyme
 	url = git@github.com-selectzyme-core:ipb-halle/SelectZyme.git  # server deployment use selectzyme-core configured deployment key
-	url = https://github.com/ipb-halle/SelectZyme.git  # local development with https cloning
-	tag = v0.0.2  # tags dont exist in forked repos, execute in fork: git fetch --tags https://github.com/fmoorhof/SelectZyme.git; git push --tags
+	# url = https://github.com/ipb-halle/SelectZyme.git  # local development with https cloning
+	tag = v0.0.2  # todo: i think this is not used, instead still commit hash; tags dont exist in forked repos, execute in fork: git fetch --tags https://github.com/fmoorhof/SelectZyme.git; git push --tags
