@@ -10,12 +10,12 @@ services:
       - ./nginx/bootstrap.min.css:/usr/share/nginx/html/selectzyme/bootstrap.min.css      
       - ./assets/:/usr/share/nginx/html/selectzyme/assets/      
     depends_on:
-      - selectzyme_blast_psi
-      - selectzyme_petase
+      - selectzyme-blast-psi
+      - selectzyme-petase
     networks:
       - selectzyme-network
       
-  selectzyme_blast_psi:
+  selectzyme-blast-psi:
     image: ipb-halle/selectzyme-app:development
     command: --input_dir=/app/data_container/
     environment:
@@ -25,7 +25,7 @@ services:
     networks:
       - selectzyme-network
 
-  selectzyme_petase:
+  selectzyme-petase:
     image: ipb-halle/selectzyme-app:development
     command: --input_dir=/app/data_container/
     environment:

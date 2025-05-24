@@ -15,6 +15,12 @@ function installFunc {
     systemctl start sz.service
 }
 
+function updateFunc {
+    git pull
+    git submodule update --init  # todo bug risk: reference this to desired tag, not latest commit
+    docker build -t ipb-halle/selectzyme-app:development .
+}
+
 case $1 in
     start)
         docker-compose up -d
@@ -22,11 +28,14 @@ case $1 in
     stop)
         docker-compose down
         ;;
+    restart)
+        docker-compose restart
+        ;;
     install)
         installFunc
         ;;
     update)
-        echo "Update is currently not supported"
+        updateFunc
         ;;
     *)
         echo "Usage: sz.sh [start|stop|install|update]"
