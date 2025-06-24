@@ -121,7 +121,8 @@ def main(app, input_dir) -> None:
                     style={
                         "height": "40px",
                         "marginRight": "15px"
-                    }
+                    },
+                    alt="IPB Logo"
                 )
             ],
             style={
@@ -159,6 +160,9 @@ def main(app, input_dir) -> None:
                             html.A("Datenschutz (DSGVO)", 
                                    href="https://www.ipb-halle.de/kontakt/datenschutz", 
                                    target="_blank"),
+                            html.A("Barrierefreiheit", 
+                                   href="https://www.ipb-halle.de/kontakt/barrierefreiheit", 
+                                   target="_blank"),                                   
                         ],
                         style={
                             "textAlign": "center",
@@ -173,6 +177,28 @@ def main(app, input_dir) -> None:
         ],
         fluid=True,
     )
+
+    # Set language attribute for accessibility (screen readers)
+    app.index_string = """
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            {%metas%}
+            <title>{%title%}</title>
+            {%favicon%}
+            {%css%}
+        </head>
+        <body>
+            {%app_entry%}
+            <footer>
+                {%config%}
+                {%scripts%}
+                {%renderer%}
+            </footer>
+        </body>
+    </html>
+    """
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
