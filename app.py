@@ -204,8 +204,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Selectzyme Dash app")
     parser.add_argument("-i", 
                         "--input_dir", 
-                        type=str, default="data/blast_psi", 
-                        help="Path to input directory (default: 'data/blast_psi')")
+                        type=str, default="data/demo", 
+                        help="Path to input directory (default: 'data/demo')")
     args = parser.parse_args()
     
     main(app, args.input_dir)

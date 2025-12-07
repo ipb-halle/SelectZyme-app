@@ -3,15 +3,15 @@ Minimal demonstration of pre-calculated analyses to show usage and utility of Se
 
 ```mermaid
 graph TD;  
-    B[BLAST-PSI analysis] --> D[data/blast_psi/:/app/data_container/];
+    B[Demo analysis] --> D[data/demo/:/app/data_container/];
     C[Petase analysis] --> E[data/petase/:/app/data_container/];
     
-    A[Proxy - Nginx] -->|/selectzyme/blast-psi/| B[BLAST-PSI analysis];
+    A[Proxy - Nginx] -->|/selectzyme/demo/| B[Demo analysis];
     A[Proxy - Nginx] -->|/selectzyme/petase/| C[Petase analysis];
     
     subgraph Docker Network;
         A[Proxy - Nginx];
-        B[BLAST-PSI analysis];
+        B[Demo analysis];
         C[Petase analysis];
     end
 ```
@@ -42,7 +42,7 @@ Access the server from your browser at: `localhost/selectzyme/`
 
 #### Run only individual Container
 ```
-docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-app:development --input_dir=/app/data/blast_psi
+docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-app:development --input_dir=/app/data/demo
 ```
 Access the server for your analysis from your browser at: `localhost:8050`
 
@@ -58,10 +58,6 @@ python app.py  # runs example analysis by default
 python app.py -i=/your/out_files/from/selectzyme_backend
 ```
 Access the server for your analysis from your browser at: `localhost:8050`
-
-## Development
-This project uses the following tools to improve code quality:
-- [ruff](https://docs.astral.sh/ruff/tutorial/)
 
 ## Server deployment
 Target server: [biocloud](https://biocloud.ipb-halle.de/)
@@ -90,6 +86,15 @@ sequenceDiagram
     BP-->>-User: Response
 ```
 * Changes: Biocloud proxy sits on top of SelectZyme proxy
+
+
+## Development
+This project uses the following tools to improve code quality:
+- [ruff](https://docs.astral.sh/ruff/tutorial/)
+
+Ocean server development (ocean_ip)
+http://ocean_ip/selectzyme/demo/
+
 
 # License
 MIT License
