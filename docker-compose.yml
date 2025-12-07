@@ -10,18 +10,18 @@ services:
       - ./nginx/bootstrap.min.css:/usr/share/nginx/html/selectzyme/bootstrap.min.css      
       - ./assets/:/usr/share/nginx/html/selectzyme/assets/      
     depends_on:
-      - selectzyme-blast-psi
+      - selectzyme-demo
       - selectzyme-petase
     networks:
       - selectzyme-network
       
-  selectzyme-blast-psi:
+  selectzyme-demo:
     image: ipb-halle/selectzyme-app:development
     command: --input_dir=/app/data_container/
     environment:
-      - DASH_URL_BASE_PATHNAME=/selectzyme/blast-psi/
+      - DASH_URL_BASE_PATHNAME=/selectzyme/demo/
     volumes:
-      - ./data/blast_psi/:/app/data_container/
+      - ./data/demo/:/app/data_container/
     networks:
       - selectzyme-network
 
