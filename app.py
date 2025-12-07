@@ -45,15 +45,15 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
     Returns:
         tuple: A tuple containing the following:
             - pd.DataFrame: DataFrame loaded from "df.parquet".
-            - np.ndarray: Reduced feature matrix loaded from "X_red.npz".
-            - np.ndarray: Minimum spanning tree (MST) loaded from "hdbscan_structures.npz".
-            - np.ndarray: Linkage matrix loaded from "hdbscan_structures.npz".
+            - np.ndarray: Reduced feature matrix loaded from "x_red_mst_slc.npz".
+            - np.ndarray: Minimum spanning tree (MST) loaded from "x_red_mst_slc.npz".
+            - np.ndarray: Linkage matrix loaded from "x_red_mst_slc.npz".
     """
     df = pd.read_parquet(os.path.join(input_dir, "df.parquet"))
-    X_red = np.load(os.path.join(input_dir, "X_red.npz"))["X_red"]
-    structures = np.load(os.path.join(input_dir, "hdbscan_structures.npz"))
-    mst = structures["mst"]
-    linkage = structures["linkage"]
+    adata = np.load(os.path.join(input_dir, "x_red_mst_slc.npz"))
+    X_red = adata["X_red"]
+    mst = adata["mst"]
+    linkage = adata["linkage"]
 
     return df, X_red, mst, linkage
 
