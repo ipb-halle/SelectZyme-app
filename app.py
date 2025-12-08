@@ -3,9 +3,9 @@ from __future__ import annotations
 import argparse
 import logging
 import os
-from pathlib import Path
 import sys
 import types
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,6 +19,7 @@ from plotly.graph_objects import Figure
 # Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
 sys.modules['taxoniq'] = types.SimpleNamespace()
 
+import selectzyme
 import selectzyme.pages.dimred as dimred
 import selectzyme.pages.eda as eda
 from selectzyme.backend.customizations import set_columns_of_interest
@@ -26,7 +27,6 @@ from selectzyme.frontend.mst_plotting import MinimumSpanningTree
 from selectzyme.frontend.single_linkage_plotting import create_dendrogram
 from selectzyme.frontend.visualizer import plot_2d
 from selectzyme.pages.callbacks import register_callbacks
-import selectzyme
 
 pages_folder = Path(selectzyme.__file__).parent / "pages"
 
