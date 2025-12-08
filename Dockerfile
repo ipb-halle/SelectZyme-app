@@ -4,12 +4,14 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y git
+
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
+RUN pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git
 
 COPY . /app
 RUN pip install .
-RUN pip install --no-dependencies external/selectzyme/
 
 # Expose the port Dash will run on
 EXPOSE 8050

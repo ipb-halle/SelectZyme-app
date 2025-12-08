@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import logging
 import os
+from pathlib import Path
 import sys
 import types
 
@@ -25,11 +26,14 @@ from selectzyme.frontend.mst_plotting import MinimumSpanningTree
 from selectzyme.frontend.single_linkage_plotting import create_dendrogram
 from selectzyme.frontend.visualizer import plot_2d
 from selectzyme.pages.callbacks import register_callbacks
+import selectzyme
+
+pages_folder = Path(selectzyme.__file__).parent / "pages"
 
 app = dash.Dash(
     __name__,
     use_pages=True,
-    pages_folder="external/selectzyme/selectzyme/pages",
+    pages_folder=str(pages_folder),
     suppress_callback_exceptions=True,
     external_stylesheets=["assets/bootstrap.min.css"],
 )
