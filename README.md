@@ -1,21 +1,6 @@
 # SelectZyme-app
 Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme.
 
-```mermaid
-graph TD;  
-    B[Demo analysis] --> D[data/demo/:/app/data_container/];
-    C[Petase analysis] --> E[data/petase/:/app/data_container/];
-    
-    A[Proxy - Nginx] -->|/selectzyme/demo/| B[Demo analysis];
-    A[Proxy - Nginx] -->|/selectzyme/petase/| C[Petase analysis];
-    
-    subgraph Docker Network;
-        A[Proxy - Nginx];
-        B[Demo analysis];
-        C[Petase analysis];
-    end
-```
-
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
 ```
@@ -59,7 +44,23 @@ python app.py -i=/your/out_files/from/selectzyme_backend
 ```
 Access the server for your analysis from your browser at: `localhost:8050`
 
-## Server deployment
+## Architecture
+```mermaid
+graph TD;  
+    B[Demo analysis] --> D[data/demo/:/app/data_container/];
+    C[Petase analysis] --> E[data/petase/:/app/data_container/];
+    
+    A[Proxy - Nginx] -->|/selectzyme/demo/| B[Demo analysis];
+    A[Proxy - Nginx] -->|/selectzyme/petase/| C[Petase analysis];
+    
+    subgraph Docker Network;
+        A[Proxy - Nginx];
+        B[Demo analysis];
+        C[Petase analysis];
+    end
+```
+
+## Server deployment @ IPB
 Target server: [biocloud](https://biocloud.ipb-halle.de/)
 Service: [SelectZyme](https://biocloud.ipb-halle.de/selectzyme/)
 

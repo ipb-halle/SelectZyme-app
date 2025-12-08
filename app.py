@@ -5,6 +5,7 @@ import logging
 import os
 import sys
 import types
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,6 +19,7 @@ from plotly.graph_objects import Figure
 # Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
 sys.modules['taxoniq'] = types.SimpleNamespace()
 
+import selectzyme
 import selectzyme.pages.dimred as dimred
 import selectzyme.pages.eda as eda
 from selectzyme.backend.customizations import set_columns_of_interest
@@ -26,10 +28,12 @@ from selectzyme.frontend.single_linkage_plotting import create_dendrogram
 from selectzyme.frontend.visualizer import plot_2d
 from selectzyme.pages.callbacks import register_callbacks
 
+pages_folder = Path(selectzyme.__file__).parent / "pages"
+
 app = dash.Dash(
     __name__,
     use_pages=True,
-    pages_folder="external/selectzyme/selectzyme/pages",
+    pages_folder=str(pages_folder),
     suppress_callback_exceptions=True,
     external_stylesheets=["assets/bootstrap.min.css"],
 )
