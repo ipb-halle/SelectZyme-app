@@ -10,7 +10,7 @@ RUN apt-get update \
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@v0.0.3
+RUN pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@1069532
 
 COPY . /app
 RUN pip install .

@@ -4,13 +4,9 @@ Minimal demonstration of pre-calculated analyses to show usage and utility of Se
 ## Install
 Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
 ```
-git clone --recurse-submodules https://github.com/ipb-halle/SelectZyme-app.git
+git clone https://github.com/ipb-halle/SelectZyme-app.git
 cd SelectZyme-app
 ```
-*Troubleshooting:
-if you forgot to clone with `--recurse-submodules` you can do it later via: `git submodule update --init`
-if you want to leave the latest stable commit hash and use a newer version of SelectZyme (core functionality), update the submodule to the latest commit:
-`git submodule update --recursive --remote`
 
 ### Docker
 Requires cloning the repository (see above).
@@ -35,7 +31,7 @@ Access the server for your analysis from your browser at: `localhost:8050`
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
 ```
 pip install .
-pip install --no-dependencies external/selectzyme/
+pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@1069532
 ```
 Usage: 
 ```
