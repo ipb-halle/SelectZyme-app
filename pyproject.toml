@@ -1,7 +1,7 @@
 [project]
 name = "selectzyme-app"
 version = "0.0.3"
-description = "A minimal demo application for selectzyme"
+description = "SelectZyme web app to host pre calulated analyses"
 readme = "README.md"
 authors = [{ name = "fmoorhof", email = "fmoorhof@ipb-halle.de" }]
 license = {file = "LICENSE"}

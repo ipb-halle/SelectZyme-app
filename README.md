@@ -1,12 +1,14 @@
 # SelectZyme-app
-Minimal demonstration of pre-calculated analyses to show usage and utility of SelectZyme.
+Web application to host the pre calculated analyses by SelectZyme.
 
 ## Install
-Prerequisite for all installs is to clone the repository with the corresponding submodule SelectZyme.
+Prerequisite for all installs is to clone the code and data repositories.
 ```
 git clone https://github.com/ipb-halle/SelectZyme-app.git
 cd SelectZyme-app
+git clone https://huggingface.co/datasets/fmoorhof/selectzyme-app-data data
 ```
+After these steps you should have the directory 'SelectZyme-app' and 'SelectZyme-app/data', where the 'data' folder contains the pre-calualated analyses from SelectZyme.
 
 ### Docker
 Requires cloning the repository (see above).
@@ -25,7 +27,7 @@ Access the server from your browser at: `localhost/selectzyme/`
 ```
 docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-app:development --input_dir=/app/data/demo
 ```
-Access the server for your analysis from your browser at: `localhost:8050`
+Access the server for your analysis from your browser at: `localhost:8050`. Replace `data/demo` with the path to the desired analysis.
 
 ### Local install
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
@@ -35,7 +37,7 @@ pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@106
 ```
 Usage: 
 ```
-python app.py  # runs example analysis by default
+python app.py  # runs example analysis 'demo' by default
 python app.py -i=/your/out_files/from/selectzyme_backend
 ```
 Access the server for your analysis from your browser at: `localhost:8050`
