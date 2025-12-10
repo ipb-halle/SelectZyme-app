@@ -17,7 +17,7 @@ function installFunc {
 
 function updateFunc {
     git pull
-    git submodule update --init  # todo bug risk: reference this to desired tag, not latest commit
+    git clone https://huggingface.co/datasets/fmoorhof/selectzyme-app-data data
     docker build -t ipb-halle/selectzyme-app:development .
 }
 
