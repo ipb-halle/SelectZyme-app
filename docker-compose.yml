@@ -12,6 +12,10 @@ services:
     depends_on:
       - selectzyme-demo
       - selectzyme-petase
+      - selectzyme-ired
+      - selectzyme-lpor
+      - selectzyme-lov
+      - selectzyme-fmos
     networks:
       - selectzyme-network
       
@@ -32,6 +36,46 @@ services:
       - DASH_URL_BASE_PATHNAME=/selectzyme/petase/
     volumes:
       - ./data/petase/:/app/data_container/
+    networks:
+      - selectzyme-network
+
+  selectzyme-ired:
+    image: ipb-halle/selectzyme-app:development
+    command: --input_dir=/app/data_container/
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme/ired/
+    volumes:
+      - ./data/ired/:/app/data_container/
+    networks:
+      - selectzyme-network
+
+  selectzyme-lpor:
+    image: ipb-halle/selectzyme-app:development
+    command: --input_dir=/app/data_container/
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme/lpor/
+    volumes:
+      - ./data/lpor/:/app/data_container/
+    networks:
+      - selectzyme-network      
+
+  selectzyme-lov:
+    image: ipb-halle/selectzyme-app:development
+    command: --input_dir=/app/data_container/
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme/lov/
+    volumes:
+      - ./data/lov/:/app/data_container/
+    networks:
+      - selectzyme-network
+
+  selectzyme-fmos:
+    image: ipb-halle/selectzyme-app:development
+    command: --input_dir=/app/data_container/
+    environment:
+      - DASH_URL_BASE_PATHNAME=/selectzyme/fmos/
+    volumes:
+      - ./data/fmos/:/app/data_container/
     networks:
       - selectzyme-network
 
