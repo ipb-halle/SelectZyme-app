@@ -17,7 +17,6 @@ function installFunc {
 
 function updateFunc {
     git pull
-    git clone https://huggingface.co/datasets/fmoorhof/selectzyme-app-data data
     docker build -t ipb-halle/selectzyme-app:development .
 }
 
