@@ -10,8 +10,7 @@ RUN apt-get update \
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@1069532
-RUN git clone https://huggingface.co/datasets/fmoorhof/selectzyme-app-data /app/data
+RUN pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git@1069532
 
 COPY . /app
 RUN pip install .

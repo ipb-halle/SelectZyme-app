@@ -2,11 +2,10 @@
 Web application to host the pre calculated analyses by SelectZyme.
 
 ## Install
-Prerequisite for all installs is to clone the code and data repositories.
+Prerequisite for all installs is to clone the repository.
 ```
 git clone https://github.com/ipb-halle/SelectZyme-app.git
 cd SelectZyme-app
-git clone https://huggingface.co/datasets/fmoorhof/selectzyme-app-data data
 ```
 After these steps you should have the directory 'SelectZyme-app' and 'SelectZyme-app/data', where the 'data' folder contains the pre-calualated analyses from SelectZyme.
 
@@ -33,7 +32,7 @@ Access the server for your analysis from your browser at: `localhost:8050`. Repl
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
 ```
 pip install .
-pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@1069532
+pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git@1069532
 ```
 Usage: 
 ```

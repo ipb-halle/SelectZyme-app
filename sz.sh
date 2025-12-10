@@ -17,7 +17,6 @@ function installFunc {
 
 function updateFunc {
     git pull
-    git submodule update --init  # todo bug risk: reference this to desired tag, not latest commit
     docker build -t ipb-halle/selectzyme-app:development .
 }
 
