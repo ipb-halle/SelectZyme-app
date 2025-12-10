@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 import types
 from pathlib import Path
@@ -224,5 +225,5 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8050, debug=False)
 
 else:
-    main(app, "demo")  # default dataset for container
-    # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1
+    main(app, os.environ.get("SELECTZYME_DATASET", "demo"))  # see docker-compose.yml
+    # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1  # Dockerfile
