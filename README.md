@@ -33,7 +33,7 @@ Access the server for your analysis from your browser at: `localhost:8050`. Repl
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
 ```
 pip install .
-pip install --no-dependencies git+https://github.com/fmoorhof/SelectZyme.git@1069532
+pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git@1069532
 ```
 Usage: 
 ```
