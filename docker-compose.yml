@@ -20,7 +20,7 @@ services:
       - selectzyme-network
       
   selectzyme-demo:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/demo/
       - SELECTZYME_DATASET=demo
@@ -28,7 +28,7 @@ services:
       - selectzyme-network
 
   selectzyme-petase:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/petase/
       - SELECTZYME_DATASET=petase
@@ -36,7 +36,7 @@ services:
       - selectzyme-network
 
   selectzyme-ired:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/ired/
       - SELECTZYME_DATASET=ired
@@ -44,7 +44,7 @@ services:
       - selectzyme-network
 
   selectzyme-lpor:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/lpor/
       - SELECTZYME_DATASET=lpor
@@ -52,7 +52,7 @@ services:
       - selectzyme-network      
 
   selectzyme-lov:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/lov/
       - SELECTZYME_DATASET=lov
@@ -60,7 +60,7 @@ services:
       - selectzyme-network
 
   selectzyme-fmos:
-    image: ghcr.io/ipb-halle/selectzyme-app:0.4.0
+    image: ghcr.io/ipb-halle/selectzyme-app:0.0.4
     environment:
       - DASH_URL_BASE_PATHNAME=/selectzyme/fmos/
       - SELECTZYME_DATASET=fmos
