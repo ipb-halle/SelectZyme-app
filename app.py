@@ -14,6 +14,7 @@ import dash_bootstrap_components as dbc
 import numpy as np
 import pandas as pd
 from dash import dcc, html
+from huggingface_hub import hf_hub_download
 from plotly.graph_objects import Figure
 
 # Monkey patch / patch not required imports (from SelectZyme) as workaround to avoid module not found errors
@@ -41,11 +42,11 @@ app = dash.Dash(
 server = app.server  # get the Flask server from dash for gunicorn
 
 
-def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray]:
+def import_results(dataset_name: str) -> tuple[pd.DataFrame, np.ndarray, np.ndarray, np.ndarray]:
     """
-    Imports and loads results from specified input directory.
+    Imports and loads results from a dataset downloaded from Hugging Face Hub.
     Args:
-        input_dir (str): Path to the directory containing the input files. Defaults to "data/".
+        dataset_name (str): Name of the dataset to fetch from Hugging Face Hub.
     Returns:
         tuple: A tuple containing the following:
             - pd.DataFrame: DataFrame loaded from "df.parquet".
@@ -53,8 +54,17 @@ def import_results(input_dir: str = "data/") -> tuple[pd.DataFrame, np.ndarray, 
             - np.ndarray: Minimum spanning tree (MST) loaded from "x_red_mst_slc.npz".
             - np.ndarray: Linkage matrix loaded from "x_red_mst_slc.npz".
     """
-    df = pd.read_parquet(os.path.join(input_dir, "df.parquet"))
-    adata = np.load(os.path.join(input_dir, "x_red_mst_slc.npz"))
+    # Download files from Hugging Face Hub
+    df_path = hf_hub_download(repo_id="fmoorhof/selectzyme-app-data", 
+                              filename=f"{dataset_name}/df.parquet", 
+                              repo_type="dataset")
+    npz_path = hf_hub_download(repo_id="fmoorhof/selectzyme-app-data", 
+                               filename=f"{dataset_name}/x_red_mst_slc.npz", 
+                               repo_type="dataset")
+
+    # Load data
+    df = pd.read_parquet(df_path)
+    adata = np.load(npz_path)
     X_red = adata["X_red"]
     mst = adata["mst"]
     linkage = adata["linkage"]
@@ -215,5 +225,5 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8050, debug=False)
 
 else:
-    main(app, os.path.join('data/', os.environ.get("SELECTZYME_DATASET", "demo")))  # see docker-compose.yml
+    main(app, os.environ.get("SELECTZYME_DATASET", "demo"))  # see docker-compose.yml
     # serve with gunicorn: gunicorn app:server --bind 0.0.0.0:8050 --workers 1  # Dockerfile

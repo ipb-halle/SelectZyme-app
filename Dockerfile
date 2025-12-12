@@ -12,8 +12,7 @@ COPY requirements.txt /app/requirements.txt
 RUN \
     pip install -r requirements.txt && \
     pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git@1069532 && \
-    mkdir data && \
-    python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='fmoorhof/selectzyme-app-data', repo_type='dataset', local_dir='data')"
+    python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='fmoorhof/selectzyme-app-data', repo_type='dataset')"
 
 COPY . /app
 RUN pip install .
