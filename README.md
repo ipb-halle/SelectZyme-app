@@ -7,38 +7,27 @@ Prerequisite for all installs is to clone the repository.
 git clone https://github.com/ipb-halle/SelectZyme-app.git
 cd SelectZyme-app
 ```
-After these steps you should have the directory 'SelectZyme-app' and 'SelectZyme-app/data', where the 'data' folder contains the pre-calualated analyses from SelectZyme.
 
 ### Docker
-Requires cloning the repository (see above).
-```
-docker build -t ipb-halle/selectzyme-app:development .
-```
-#### Run all case studies (reproduces SelectZyme server)
+#### Run all case studies (serve SelectZyme server)
 ```
 docker-compose up
 docker-compose down  # shut down services
 ```
 Access the server from your browser at: `localhost/selectzyme/`
 
-
-#### Run only individual Container
-```
-docker run -it --rm -p 8050:8050 ipb-halle/selectzyme-app:development --input_dir=/app/data/demo
-```
-Access the server for your analysis from your browser at: `localhost:8050`. Replace `data/demo` with the path to the desired analysis.
-
-### Local install
+### Local install to run a single case study
 Install dependencies defined in the `pyproject.toml` and SelectZyme without dependencies.
 ```
 pip install .
-pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git@1069532
+pip install --no-dependencies git+https://github.com/ipb-halle/SelectZyme.git
 ```
 Usage: 
 ```
 python app.py  # runs example analysis 'demo' by default
-python app.py -i=/your/out_files/from/selectzyme_backend
+python app.py -i=petase
 ```
+`-i=` specify the case study to load. Available case studies are listed [here](https://huggingface.co/datasets/fmoorhof/selectzyme-app-data/tree/main) with their names (here as an example petase).
 Access the server for your analysis from your browser at: `localhost:8050`
 
 ## Architecture
@@ -68,6 +57,10 @@ In order to automatically (re-)start the service (e.g. with a cronjob) please pe
 systemctl status sz.service  # test status
 ./sz.sh stop  # stop service
 ```
+Use `sz.sh update` to update the service.
+
+Additional notes on the current workflow to build docker images with a workflow:
+Because of a restricted company network, images (github: packages) are build using a CI workflow. The packages appear in the repo on the right, clicking on them you can change the visibility. They should inherit visibility from the repo but the company can have restrictions so ask the organization owner to enable public visibility of your package (image).
 
 ```mermaid
 sequenceDiagram
